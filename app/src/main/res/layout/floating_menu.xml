@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="25dp"
+        android:clickable="true"
+        android:rotation="45"
+        app:fabSize="normal"
+        app:srcCompat="@drawable/fab_add" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingPencil"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floatingDisplay"
+        android:layout_alignEnd="@+id/floatingDisplay"
+        android:layout_marginBottom="52dp"
+        android:clickable="true"
+        android:onClick="onClick"
+        app:backgroundTint="@android:color/holo_green_light"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_menu_edit" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingErase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/floatingPencil"
+        android:layout_marginTop="13dp"
+        android:layout_toEndOf="@+id/floatingColor"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:rotation="0"
+        android:tint="@android:color/background_light"
+        app:backgroundTint="@android:color/holo_blue_light"
+        app:fabSize="mini"
+        app:srcCompat="@mipmap/ic_eraser_foreground" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/floatingDisplay"
+        android:layout_alignStart="@+id/floatingUndo"
+        android:layout_marginStart="14dp"
+        android:clickable="true"
+        android:onClick="onClick"
+        android:tint="@android:color/background_light"
+        app:backgroundTint="?android:attr/colorPressedHighlight"
+        app:fabSize="mini"
+        app:srcCompat="?android:attr/textSelectHandle" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/floatingUndo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/floatingDisplay"
+        android:layout_marginEnd="52dp"
+        android:layout_toStartOf="@+id/floatingDisplay"
+        android:clickable="true"
+        android:onClick="onClick"
+        app:backgroundTint="?attr/colorError"
+        app:fabSize="mini"
+        app:srcCompat="@android:drawable/ic_input_delete" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingErase2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/floatingUndo2"
+            android:layout_alignStart="@+id/floatingUndo2"
+            android:layout_marginBottom="18dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:tint="@android:color/background_light"
+            app:backgroundTint="@android:color/black"
+            app:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingUndo2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/floatingPencil2"
+            android:layout_alignStart="@+id/floatingPencil2"
+            android:layout_marginBottom="18dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            app:backgroundTint="@color/colorAccent"
+            app:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingPencil2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/floatingColor2"
+            android:layout_alignStart="@+id/floatingColor2"
+            android:layout_centerVertical="true"
+            android:layout_marginBottom="18dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            app:backgroundTint="@color/colorPrimary"
+            app:fabSize="mini" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingColor2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="130dp"
+            android:layout_marginEnd="118dp"
+            android:clickable="true"
+            android:onClick="onClick"
+            android:tint="@android:color/background_light"
+            app:backgroundTint="@android:color/white"
+            app:fabSize="mini" />
+    </RelativeLayout>
+
+</RelativeLayout>
