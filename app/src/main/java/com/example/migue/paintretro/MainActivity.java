@@ -60,7 +60,9 @@ public class MainActivity extends AppCompatActivity
         init();
         setAnimating();
         displayNavDrawer();
+
     }
+
 
     public void onClick(View v){
         switch(v.getId()){
@@ -68,7 +70,7 @@ public class MainActivity extends AppCompatActivity
                 break;
 
             case R.id.floatingErase:
-
+                    paintedView.eraser();
                 break;
 
             case R.id.floatingColor:
@@ -95,7 +97,7 @@ public class MainActivity extends AppCompatActivity
 
         @Override
         public float getInterpolation(float paramFloat) {
-            System.out.println("interpolating");
+            //System.out.println("interpolating");
             if(isShowing)
                 return paramFloat;
             return Math.abs(paramFloat -1f);
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity
 
     private void setAnimating(){
         interpolator = new ReverseInterpolator();
-        hide = AnimationUtils.loadAnimation(this, R.anim.fab_pencil_show);
+        hide = AnimationUtils.loadAnimation(this, R.anim.show_menu);
 
         hide.setInterpolator(interpolator);
 
