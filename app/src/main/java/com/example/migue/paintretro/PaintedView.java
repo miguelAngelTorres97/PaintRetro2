@@ -56,6 +56,11 @@ public class PaintedView extends View {
         canvas = new Canvas(cache.get(cache.size()-1));
     }
 
+    @Override
+    public boolean performClick() {
+        return super.performClick();
+    }
+
     Bitmap createBitmap(){
         return Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
     }
@@ -123,15 +128,20 @@ public class PaintedView extends View {
             if(mode == 1)
                 cv.drawLine(xi, yi, xf, yf, pincel);
             if(mode == 2)
-                cv.drawCircle(xi, yi, ratio, pincel);
+                cv.drawCircle((xi+xf)/2 , (yi+yf)/2, ratio / 2 , pincel);
+                //betterCircle(cv);
         }else if(resting) {
             resting = false;
             if(mode == 1)
                 canvas.drawLine(xi, yi, xf, yf, pincel);
             if(mode == 2)
-                canvas.drawCircle(xi, yi, ratio, pincel);
+                canvas.drawCircle((xi+xf)/2 , (yi+yf)/2, ratio / 2, pincel);
         }
         invalidate();
+    }
+
+    void betterCircle(Canvas cv){
+        float xc, yc;
     }
 
 
