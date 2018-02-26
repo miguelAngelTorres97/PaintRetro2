@@ -16,11 +16,11 @@ import java.util.ArrayList;
 
 public class PaintedView extends View {
 
-    public ArrayList<Bitmap> cache;
+    public final static int FREE = 0, LINEAR = 1, CIRCLE = 2;
 
-    public Canvas canvas;
-
-    public Paint pincel;
+    private ArrayList<Bitmap> cache;
+    private Canvas canvas;
+    private Paint pincel;
 
     private int mode = 0;
     private int w, h;
@@ -50,7 +50,7 @@ public class PaintedView extends View {
 
         pincel.setAntiAlias(true);
         pincel.setStrokeWidth(10);
-        pincel.setColor(Color.BLUE);
+        pincel.setColor(Color.BLACK);
         pincel.setStyle(Paint.Style.STROKE);
 
         canvas = new Canvas(cache.get(cache.size()-1));
@@ -87,7 +87,7 @@ public class PaintedView extends View {
                 break;
 
             case MotionEvent.ACTION_MOVE:
-                if(mode == 0) {
+                if(mode == FREE) {
                     xi = xf;
                     yi = yf;
                 }
@@ -123,27 +123,21 @@ public class PaintedView extends View {
 
 
         if(painting) {
-            if(mode == 0)
+            if(mode == FREE)
                 canvas.drawLine(xi, yi, xf, yf, pincel);
-            if(mode == 1)
+            if(mode == LINEAR)
                 cv.drawLine(xi, yi, xf, yf, pincel);
-            if(mode == 2)
+            if(mode == CIRCLE)
                 cv.drawCircle((xi+xf)/2 , (yi+yf)/2, ratio / 2 , pincel);
                 //betterCircle(cv);
         }else if(resting) {
             resting = false;
-            if(mode == 1)
+            if(mode == LINEAR)
                 canvas.drawLine(xi, yi, xf, yf, pincel);
-            if(mode == 2)
+            if(mode == CIRCLE)
                 canvas.drawCircle((xi+xf)/2 , (yi+yf)/2, ratio / 2, pincel);
         }
-        invalidate();
     }
-
-    void betterCircle(Canvas cv){
-        float xc, yc;
-    }
-
 
     public void save(){
         for(int i = 0; i<cache.size()-1; i++){
@@ -154,28 +148,54 @@ public class PaintedView extends View {
     }
 
 
-
     public void undo(){
-        cache.set(cache.size()-1, createBitmap());
         canvas.setBitmap(cache.get(cache.size()-1));
         for(int i = cache.size()-1; i>0; i--){
-            cache.set(i, createBitmap());
             canvas.setBitmap(cache.get(i));
+            canvas.drawColor(INVISIBLE, PorterDuff.Mode.CLEAR);
             canvas.drawBitmap(cache.get(i-1), 0 ,0, null);
         }
         canvas.setBitmap(cache.get(cache.size()-1));
         invalidate();
-        mode = 2;
     }
 
-    public void chooseColor(){
-        pincel.setColor(Color.BLUE);
-        mode = 1;
+
+    public void setColor(int color){
+        pincel.setColor(color);
     }
 
-    public void eraser(){
-        pincel.setColor(Color.WHITE);
-        mode = 0;
+
+    private int[] colors = {
+            Color.BLACK,
+            Color.BLUE,
+            Color.YELLOW,
+            Color.GREEN,
+            Color.RED
+    };
+    private int colorSP = 0;
+
+    public int setColor(){
+        colorSP = colorSP >= colors.length-1 ? 0 : colorSP+1;
+        int color = colors[colorSP];
+        setColor(color);
+        return color;
+    }
+
+    private int[] modes = {
+            FREE,
+            LINEAR,
+            CIRCLE
+    };
+    private int modeSP = 0;
+
+    public void setMode(){
+        modeSP = modeSP >= modes.length-1 ? 0 : modeSP+1;
+        int mode = modes[modeSP];
+        setMode(mode);
+    }
+
+    public void setMode(int mode){
+        this.mode = mode;
     }
 }
 

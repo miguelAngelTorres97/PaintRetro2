@@ -1,5 +1,6 @@
 package com.example.migue.paintretro;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -46,11 +47,6 @@ public class MainActivity extends AppCompatActivity
                 animate();
             }
         });
-        /*vectorPencil = new float[]{floatingPencil.getX(), floatingPencil.getY()};
-        vectorErase = new float[]{floatingErase.getX(), floatingErase.getY()};
-        vectorColor = new float[]{floatingColor.getX(), floatingColor.getY()};
-        vectorUndo = new float[]{floatingUndo.getX(), floatingUndo.getY()};
-        vectorMenu = new float[]{floatingDisplay.getX(), floatingDisplay.getY()};*/
     }
 
     @Override
@@ -65,16 +61,21 @@ public class MainActivity extends AppCompatActivity
 
 
     public void onClick(View v){
+        if(!((ReverseInterpolator)hide.getInterpolator()).isShowing) return;
         switch(v.getId()){
             case R.id.floatingPencil:
+                    paintedView.setMode();
                 break;
 
             case R.id.floatingErase:
-                    paintedView.eraser();
+                    paintedView.setColor(Color.WHITE);
+                    floatingColor.setColorFilter(Color.WHITE);
+                    paintedView.setMode(0);
                 break;
 
             case R.id.floatingColor:
-                paintedView.chooseColor();
+                    int color = paintedView.setColor();
+                    floatingColor.setColorFilter(color);
                 break;
 
             case R.id.floatingUndo:
